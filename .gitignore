@@ -3,3 +3,4 @@ images
 *.jpeg
 *.png
 *.jpg
+node_modules
