@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, SafeAreaView, ScrollView } from "react-native";
+import { View, Text, SafeAreaView, ScrollView, StatusBar, StyleSheet, Platform } from "react-native";
 import { Divider } from "react-native-elements";
+import BottomTabs from "../components/Home/BottomTabs";
 import Categories from "../components/Home/Categories";
 // import BottomTabs from "../components/home/BottomTabs";
 import HeaderTab from "../components/Home/HeaderTab";
@@ -38,11 +39,11 @@ export default function Home({ navigation }) {
     };
 
     useEffect(() => {
-        getRestaurantsFromYelp();
+        // getRestaurantsFromYelp();
     }, [city, activeTab]);
 
     return (
-        <SafeAreaView style={{ backgroundColor: "#eee", flex: 1 }}>
+        <SafeAreaView style={styles.container}>
             <View style={{ backgroundColor: "white", padding: 15 }}>
                 <HeaderTab activeTab={activeTab} setActiveTab={setActiveTab} />
                 <SearchBar cityHandler={setCity} />
@@ -55,7 +56,16 @@ export default function Home({ navigation }) {
                 />
             </ScrollView>
             <Divider width={1} />
-            {/* <BottomTabs /> */}
+            <BottomTabs />
         </SafeAreaView>
     );
 }
+
+
+const styles = StyleSheet.create({
+    container: {
+        backgroundColor: "#eee",
+        flex: 1,
+        paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+    }
+})
