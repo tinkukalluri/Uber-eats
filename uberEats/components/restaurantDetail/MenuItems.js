@@ -4,6 +4,7 @@ import { Divider } from "react-native-elements";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
+import { ADD_TO_CART, REMOVE_FROM_CART } from '../../redux/reducers/cartReducer'
 
 const styles = StyleSheet.create({
     menuItemStyle: {
@@ -24,29 +25,61 @@ export default function MenuItems({
     hideCheckbox,
     marginLeft,
 }) {
-    const dispatch = useDispatch();
 
-    const selectItem = (item, checkboxValue) =>
-        dispatch({
-            type: "ADD_TO_CART",
-            payload: {
-                ...item,
+
+    const dispatch = useDispatch();
+    // const selectItem = (item, checkboxValue) =>
+    //     dispatch({
+    //         type: "ADD_TO_CART",
+    //         payload: {
+    //             ...item,
+    //             restaurantName: restaurantName,
+    //             checkboxValue: checkboxValue,
+    //         },
+    //     });
+
+    const { items_data } = useSelector((state) => {
+        // console.log(' state.cartUpdate::', state.cartUpdate);
+        return state.cartUpdate
+    })
+
+    const selectItem = (food, checkboxValue) => {
+        console.log("food in selectItem::", food);
+        if (checkboxValue) {
+            dispatch(ADD_TO_CART({
+                items: { ...food },
                 restaurantName: restaurantName,
                 checkboxValue: checkboxValue,
-            },
-        });
+            }))
+        } else {
+            dispatch(REMOVE_FROM_CART({
+                items: { ...food },
+                restaurantName: restaurantName,
+                checkboxValue: checkboxValue,
+            }))
+        }
+    }
 
-    const cartItems = useSelector(
-        (state) => state.cartReducer.selectedItems.items
-    );
+    // const cartItems = useSelector(
+    //     (state) => state.cartReducer.selectedItems.items
+    // );
 
+
+    //cartItems is an array of objects
+    let cartItems = []
+    if (items_data.selectedItems.restaurantName === restaurantName) {
+        cartItems = items_data.selectedItems.items
+    } else {
+        cartItems = []
+    }
+    // console.log(cartItems)
     const isFoodInCart = (food, cartItems) =>
-        Boolean(cartItems.find((item) => item.title === food.title));
+        Boolean(cartItems.find((item) => item?.title === food.title));
 
     return (
         <ScrollView showsVerticalScrollIndicator={false}>
             {foods.map((food, index) => (
-                <View key={index}>
+                <View key={index} >
                     <View style={styles.menuItemStyle}>
                         {hideCheckbox ? (
                             <></>
@@ -55,7 +88,7 @@ export default function MenuItems({
                                 iconStyle={{ borderColor: "lightgray", borderRadius: 0 }}
                                 fillColor="green"
                                 isChecked={isFoodInCart(food, cartItems)}
-                                onPress={(checkboxValue) => selectItem(food, checkboxValue)}
+                                onPress={(checkboxValue) => { console.log("checkboxValue::", checkboxValue); selectItem(food, checkboxValue) }}
                             />
                         )}
                         <FoodInfo food={food} />
@@ -68,12 +101,15 @@ export default function MenuItems({
                     />
                 </View>
             ))}
+            <View style={{ width: '100%', height: 120 }}>
+
+            </View>
         </ScrollView>
     );
 }
 
 const FoodInfo = (props) => (
-    <View style={{ width: 240, justifyContent: "space-evenly" }}>
+    <View style={{ justifyContent: "space-evenly", flex: 1 }}>
         <Text style={styles.titleStyle}>{props.food.title}</Text>
         <Text>{props.food.description}</Text>
         <Text>{props.food.price}</Text>
