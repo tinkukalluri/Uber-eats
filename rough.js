@@ -2,8 +2,25 @@
 
 
 
+snapshot = {
+    docs: [{
+        id: 1,
+        userdata: {
+            name: "tinku",
+            age: "21"
+        },
+        data: () => {
+            return snapshot.docs[0].userdata
+        }
+    }
+    ]
+}
 
-const fun1 = () => 1 + 3
+json_str_data = JSON.stringify(snapshot)
+json_parse_obj = JSON.parse(json_str_data)
 
-console.log(fun1())
+new_list = snapshot.docs.map((doc) => { return doc.data() })
+console.log(new_list)
+
+
 

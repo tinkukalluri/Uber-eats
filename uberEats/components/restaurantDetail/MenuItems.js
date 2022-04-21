@@ -69,10 +69,8 @@ export default function MenuItems({
     let cartItems = []
     if (items_data.selectedItems.restaurantName === restaurantName) {
         cartItems = items_data.selectedItems.items
-    } else {
-        cartItems = []
     }
-    // console.log(cartItems)
+    // console.log(cartItems)   
     const isFoodInCart = (food, cartItems) =>
         Boolean(cartItems.find((item) => item?.title === food.title));
 

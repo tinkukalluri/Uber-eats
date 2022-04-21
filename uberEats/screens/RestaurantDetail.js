@@ -37,11 +37,25 @@ const foods = [
             "https://images.themodernproper.com/billowy-turkey/production/posts/2019/Easy-italian-salad-recipe-10.jpg?w=1200&h=1200&q=82&fm=jpg&fit=crop&fp-x=0.5&fp-y=0.5&dm=1614096227&s=c0f63a30cef3334d97f9ecad14be51da",
     },
     {
-        title: "Lasagna",
-        description: "With butter lettuce, tomato and sauce bechamel",
-        price: "$13.50",
+        title: "chicken Biryani",
+        description: "juciy chicken with aromatic basmati rice",
+        price: "$5.50",
         image:
-            "https://thestayathomechef.com/wp-content/uploads/2017/08/Most-Amazing-Lasagna-2-e1574792735811.jpg",
+            "https://media.istockphoto.com/photos/fish-biryani-with-basmati-rice-indian-food-picture-id488481490?k=20&m=488481490&s=612x612&w=0&h=HYP2KxiC1e2tAtzmfrA7xxs3u8LD1wjSLPUD9bZ48eU=",
+    },
+    {
+        title: "chicken dum Biryani",
+        description: "juciy chicken with aromatic basmati rice",
+        price: "$10.00",
+        image:
+            "https://media.istockphoto.com/photos/fish-biryani-with-basmati-rice-indian-food-picture-id488481490?k=20&m=488481490&s=612x612&w=0&h=HYP2KxiC1e2tAtzmfrA7xxs3u8LD1wjSLPUD9bZ48eU=",
+    },
+    {
+        title: "chicken dum ka Biryani",
+        description: "juciy chicken with aromatic basmati rice",
+        price: "$15.00",
+        image:
+            "https://media.istockphoto.com/photos/fish-biryani-with-basmati-rice-indian-food-picture-id488481490?k=20&m=488481490&s=612x612&w=0&h=HYP2KxiC1e2tAtzmfrA7xxs3u8LD1wjSLPUD9bZ48eU=",
     },
 ];
 
@@ -62,7 +76,7 @@ export default function RestaurantDetail({ route, navigation }) {
             <About route={route} />
             <Divider width={1.8} style={{ marginTop: 10 }} />
             <MenuItems restaurantName={route.params.name} foods={foods} />
-            {/* <ViewCart /> */}
+            <ViewCart navigation={navigation} />
         </View>
     );
 }
