@@ -99,9 +99,10 @@ export default function MenuItems({
                     />
                 </View>
             ))}
-            <View style={{ width: '100%', height: 120 }}>
+            {hideCheckbox ?
+                <></> : (<View style={{ width: '100%', height: 120 }}>
+                </View>)}
 
-            </View>
         </ScrollView>
     );
 }

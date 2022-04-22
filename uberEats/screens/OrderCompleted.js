@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, SafeAreaView, ScrollView } from "react-native";
+import { View, Text, SafeAreaView, ScrollView, StyleSheet, Platform, StatusBar } from "react-native";
 import { useSelector } from "react-redux";
 import LottieView from "lottie-react-native";
 import db from "../firebase_firestone";
@@ -39,8 +39,9 @@ export default function OrderCompleted({ navigation, routes, ...props }) {
     //     return () => unsubscribe();
     // }, []);
 
+
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
+        <SafeAreaView style={styles.container}>
             {/* green checkmark */}
             <View
                 style={{
@@ -59,12 +60,15 @@ export default function OrderCompleted({ navigation, routes, ...props }) {
                 <Text style={{ fontSize: 20, fontWeight: "bold" }}>
                     Your order at {restaurantName} has been placed for {totalUSD}
                 </Text>
-                <ScrollView>
+                <ScrollView style={{ marginBottom: 20 }}>
                     <MenuItems
                         foods={items}
                         hideCheckbox={true}
                         marginLeft={10}
                     />
+                    {/* lottie files is the place where u can all this amazing animated json
+
+                    */}
                     <LottieView
                         style={{ height: 200, alignSelf: "center" }}
                         source={require("../assets/animations/cooking.json")}
@@ -73,6 +77,14 @@ export default function OrderCompleted({ navigation, routes, ...props }) {
                     />
                 </ScrollView>
             </View>
-        </SafeAreaView>
+        </SafeAreaView >
     );
 }
+
+const styles = StyleSheet.create({
+    container: {
+        backgroundColor: "white",
+        flex: 1,
+        paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+    }
+})
